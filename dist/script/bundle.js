@@ -96,7 +96,7 @@ var _data2 = _interopRequireDefault(_data);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function showLineChart() {
-    _highcharts2.default.chart('container', {
+    var chart = _highcharts2.default.chart('container', {
         chart: {
             zoomType: 'x'
         },
@@ -112,17 +112,75 @@ function showLineChart() {
             title: {
                 text: ''
             },
-            labels: {
-                format: '{value}'
+            plotLines: [{
+                value: _data2.default.map(function (el) {
+                    return el.value;
+                }).reduce(function (accumulator, currentValue) {
+                    return accumulator + currentValue;
+                }, 0) / _data2.default.length,
+                color: 'gray',
+                dashStyle: 'longdash',
+                width: 2,
+                label: {
+                    text: 'average value'
+                }
+            }]
+        },
+        plotOptions: {
+            series: {
+                cursor: 'pointer',
+                point: {
+                    events: {
+                        click: function click(e) {
+                            addPlotLine(e);
+                            addRect(e, chart);
+                        }
+                    }
+                }
             }
         },
         series: [{
             name: '銀行賣出-即期',
             data: _data2.default.map(function (el) {
                 return el.value;
-            })
+            }),
+            color: 'rgb(254,224,128)'
         }]
     });
+}
+
+function addPlotLine(e) {
+    console.log(e.point);
+    var xAxis = e.point.series.xAxis;
+    _highcharts2.default.each(xAxis.plotLinesAndBands, function (p) {
+        if (p.id === 'plot') {
+            p.destroy();
+        }
+    });
+    xAxis.addPlotLine({
+        value: e.point.x,
+        width: 5,
+        label: {
+            text: e.point.category,
+            align: 'center',
+            rotation: 0,
+            style: {
+                color: 'white'
+            },
+            y: 30
+        },
+        color: 'rgb(43,177,170)',
+        id: 'plot'
+    });
+}
+
+function addRect(e, chart) {
+    console.log(e);
+    $('.rectLabel').remove();
+    chart.renderer.rect(e.point.plotX + 17, 63, 70, 20).attr({
+        class: 'rectLabel',
+        fill: 'rgb(43,177,170)'
+    }).add();
 }
 
 exports.default = { showLineChart: showLineChart };
