@@ -2,6 +2,11 @@ import HighCharts from 'highcharts'
 import datas from './data.json'
 
 function showLineChart() {
+    const dataValues = datas.map(el => el.value)
+    const average = dataValues.reduce((accumulator, currentValue) => accumulator + currentValue, 0) / datas.length
+    const maxValue = Math.max(...dataValues)
+    const minValue = Math.min(...dataValues)
+
     let chart = HighCharts.chart('container',{
         chart: {
             zoomType: 'x'
@@ -17,9 +22,7 @@ function showLineChart() {
                 text: ''
             },
             plotLines: [{
-                value: datas
-                        .map(el => el.value)
-                        .reduce((accumulator, currentValue) => accumulator + currentValue, 0) / datas.length,
+                value: average,
                 color: 'gray',
                 dashStyle: 'longdash',
                 width: 2,
@@ -38,7 +41,7 @@ function showLineChart() {
                             addRect(e, chart)
                         }
                     }
-                }
+                },
             }
         },
         series: [
@@ -46,13 +49,34 @@ function showLineChart() {
                 name: '銀行賣出-即期',
                 data: datas.map(el => el.value),
                 color: 'rgb(254,224,128)'
+            },
+            {
+                name: `平均：${average.toFixed(2)}`,
+                color: 'gray',
+                dashStyle: 'shortdash',
+                marker: {
+                    enabled: false
+                }
+            },
+            {
+                name: `最高：${maxValue}`,
+                color: 'red',
+                marker: {
+                    symbol: 'circle'
+                }
+            },
+            {
+                name: `最低：${minValue}`,
+                color: 'rgb(43,177,170)',
+                marker: {
+                    symbol: 'circle'
+                }
             }
         ]
     })
 }
 
 function addPlotLine(e) {
-    console.log(e.point)
     const xAxis = e.point.series.xAxis
     HighCharts.each(xAxis.plotLinesAndBands, p => {
         if(p.id === 'plot') {

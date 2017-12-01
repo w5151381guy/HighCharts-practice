@@ -95,7 +95,18 @@ var _data2 = _interopRequireDefault(_data);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
 function showLineChart() {
+    var dataValues = _data2.default.map(function (el) {
+        return el.value;
+    });
+    var average = dataValues.reduce(function (accumulator, currentValue) {
+        return accumulator + currentValue;
+    }, 0) / _data2.default.length;
+    var maxValue = Math.max.apply(Math, _toConsumableArray(dataValues));
+    var minValue = Math.min.apply(Math, _toConsumableArray(dataValues));
+
     var chart = _highcharts2.default.chart('container', {
         chart: {
             zoomType: 'x'
@@ -113,11 +124,7 @@ function showLineChart() {
                 text: ''
             },
             plotLines: [{
-                value: _data2.default.map(function (el) {
-                    return el.value;
-                }).reduce(function (accumulator, currentValue) {
-                    return accumulator + currentValue;
-                }, 0) / _data2.default.length,
+                value: average,
                 color: 'gray',
                 dashStyle: 'longdash',
                 width: 2,
@@ -145,12 +152,30 @@ function showLineChart() {
                 return el.value;
             }),
             color: 'rgb(254,224,128)'
+        }, {
+            name: '\u5E73\u5747\uFF1A' + average.toFixed(2),
+            color: 'gray',
+            dashStyle: 'shortdash',
+            marker: {
+                enabled: false
+            }
+        }, {
+            name: '\u6700\u9AD8\uFF1A' + maxValue,
+            color: 'red',
+            marker: {
+                symbol: 'circle'
+            }
+        }, {
+            name: '\u6700\u4F4E\uFF1A' + minValue,
+            color: 'rgb(43,177,170)',
+            marker: {
+                symbol: 'circle'
+            }
         }]
     });
 }
 
 function addPlotLine(e) {
-    console.log(e.point);
     var xAxis = e.point.series.xAxis;
     _highcharts2.default.each(xAxis.plotLinesAndBands, function (p) {
         if (p.id === 'plot') {
