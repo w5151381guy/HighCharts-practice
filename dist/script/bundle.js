@@ -140,8 +140,8 @@ function showLineChart() {
                 point: {
                     events: {
                         click: function click(e) {
-                            addRect(e, chart);
                             addPlotLine(e);
+                            addRect(e, chart);
                         }
                     }
                 },
@@ -221,7 +221,6 @@ function addPlotLine(e) {
 }
 
 function addRect(e, chart) {
-    console.log(e);
     $('.rectLabel').remove();
     chart.renderer.rect(e.point.plotX + 18, 63, 70, 20).attr({
         class: 'rectLabel',
@@ -229,6 +228,8 @@ function addRect(e, chart) {
         rx: 5,
         ry: 5
     }).add();
+    chart.series[0].update({ name: '\u9280\u884C\u8CE3\u51FA-\u5373\u671F\uFF1A' + e.point.y });
+    chart.redraw();
 }
 
 exports.default = { showLineChart: showLineChart };

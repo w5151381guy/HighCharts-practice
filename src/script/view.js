@@ -38,8 +38,8 @@ function showLineChart() {
                 point: {
                     events: {
                         click: e => {
-                            addRect(e, chart)
                             addPlotLine(e)
+                            addRect(e, chart)    
                         }
                     }
                 },
@@ -60,7 +60,7 @@ function showLineChart() {
                     if(el === maxValue) {
                         return {
                             y: el,
-                            color: 'red'
+                            color: 'red'                      
                         }
                     }
                     if(el === minValue) {
@@ -124,7 +124,6 @@ function addPlotLine(e) {
 }
 
 function addRect(e, chart) {
-    console.log(e)
     $('.rectLabel').remove()
     chart.renderer.rect(e.point.plotX+18, 63, 70, 20)
         .attr({
@@ -134,6 +133,8 @@ function addRect(e, chart) {
             ry: 5
         })
         .add()
+    chart.series[0].update({name: `銀行賣出-即期：${e.point.y}`})
+    chart.redraw()
 }
 
 export default {showLineChart}
