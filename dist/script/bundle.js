@@ -109,7 +109,7 @@ function showLineChart() {
 
     var chart = _highcharts2.default.chart('container', {
         chart: {
-            zoomType: 'x'
+            type: 'spline'
         },
         title: {
             text: 'Demo'
@@ -135,12 +135,21 @@ function showLineChart() {
         },
         plotOptions: {
             series: {
+                allowPointSelect: true,
                 cursor: 'pointer',
                 point: {
                     events: {
                         click: function click(e) {
-                            addPlotLine(e);
                             addRect(e, chart);
+                            addPlotLine(e);
+                        }
+                    }
+                },
+                marker: {
+                    states: {
+                        select: {
+                            fillColor: 'white',
+                            lineColor: 'rgb(254,224,128)'
                         }
                     }
                 }
@@ -148,8 +157,20 @@ function showLineChart() {
         },
         series: [{
             name: '銀行賣出-即期',
-            data: _data2.default.map(function (el) {
-                return el.value;
+            data: dataValues.map(function (el) {
+                if (el === maxValue) {
+                    return {
+                        y: el,
+                        color: 'red'
+                    };
+                }
+                if (el === minValue) {
+                    return {
+                        y: el,
+                        color: 'rgb(43,177,170)'
+                    };
+                }
+                return el;
             }),
             color: 'rgb(254,224,128)'
         }, {
@@ -202,9 +223,11 @@ function addPlotLine(e) {
 function addRect(e, chart) {
     console.log(e);
     $('.rectLabel').remove();
-    chart.renderer.rect(e.point.plotX + 17, 63, 70, 20).attr({
+    chart.renderer.rect(e.point.plotX + 18, 63, 70, 20).attr({
         class: 'rectLabel',
-        fill: 'rgb(43,177,170)'
+        fill: 'rgb(43,177,170)',
+        rx: 5,
+        ry: 5
     }).add();
 }
 
