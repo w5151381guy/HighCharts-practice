@@ -1,0 +1,24 @@
+{
+  "name": "HighCharts-practice",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/w5151381guy/HighCharts-practice.git",
+  "author": "Andy Chen <w5151381guy@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "dev": "gulp"
+  },
+  "devDependencies": {
+    "babel": "^6.23.0",
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-es2015-without-strict": "^0.0.4",
+    "gulp": "^3.9.1",
+    "gulp-util": "^3.0.8",
+    "webpack": "^3.9.1"
+  },
+  "dependencies": {
+    "highcharts": "^6.0.3"
+  }
+}
