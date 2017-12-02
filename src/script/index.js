@@ -1,23 +1,13 @@
 import view from './view'
 
 function rotateScreen() {
-    $('div#container')
-        .css('transform-origin', 'bottom left')
-        .css('transform', 'rotate(90deg)')
-        .css('top', '-100vw')
-        .css('height', '100vw')
-        .css('width', '100vh')
+    $('div#container').toggleClass('rotated')
     $('.fa-arrows-alt').hide()
     $('.fa-compress').show()
 }
 
 function straightScreen() {
-    $('div#container')
-        .css('transform-origin', 'bottom left')
-        .css('transform', 'rotate(0deg)')
-        .css('top', '0')
-        .css('height', '400px')
-        .css('width', '100%')
+    $('div#container').removeClass('rotated')
     $('.fa-arrows-alt').show()
     $('.fa-compress').hide()
 }

@@ -1,6 +1,5 @@
 body {
-  margin: 0;
-  overflow: hidden; }
+  margin: 0; }
 
 .screen {
   cursor: pointer;
@@ -15,3 +14,16 @@ body {
     top: 20px;
     right: 20px;
     position: absolute; }
+
+#container {
+  width: 100%;
+  height: 400px;
+  margin: 0 auto;
+  position: absolute; }
+
+#container.rotated {
+  margin-top: -100vw;
+  transform-origin: bottom left;
+  width: 100vh;
+  height: 100vw;
+  transform: rotate(90deg); }
