@@ -15,8 +15,8 @@ function rotateScreen() {
 function straightScreen() {
     $('div#container').removeClass('rotated')
     $('div.highcharts-container ')
-    .css('width', '100%')
-    .css('height', '400px')
+        .css('width', '100%')
+        .css('height', '400px')
     svg = document.getElementsByTagName('svg')[0]
     svg.setAttribute('width', '100%')
     svg.setAttribute('height', '400px')
