@@ -1,0 +1,14 @@
+.screen {
+  cursor: pointer;
+  color: gray;
+  margin: 25px;
+  z-index: 3; }
+  .screen .fa-arrows-alt {
+    top: 0;
+    right: 0;
+    position: absolute; }
+  .screen .fa-compress {
+    display: none;
+    bottom: 0;
+    right: 0;
+    position: absolute; }

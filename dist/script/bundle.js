@@ -73,8 +73,22 @@ var _view2 = _interopRequireDefault(_view);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function rotateScreen() {
+    $('div#container').css('transform', 'rotate(90deg)');
+    $('.fa-arrows-alt').hide();
+    $('.fa-compress').show();
+}
+
+function straightScreen() {
+    $('div#container').css('transform', 'rotate(0deg)');
+    $('.fa-arrows-alt').show();
+    $('.fa-compress').hide();
+}
+
 $(function () {
     _view2.default.showLineChart();
+    $('.fa-arrows-alt').click(rotateScreen);
+    $('.fa-compress').click(straightScreen);
 });
 
 /***/ }),
