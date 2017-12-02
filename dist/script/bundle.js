@@ -87,6 +87,7 @@ function straightScreen() {
 
 $(function () {
     _view2.default.showLineChart();
+    $('div#container').append('\n        <div class="screen">\n            <div class="fa fa-arrows-alt fa-2x"></div>\n            <div class="fa fa-compress fa-2x"></div>\n        </div>\n    ');
     $('.fa-arrows-alt').click(rotateScreen);
     $('.fa-compress').click(straightScreen);
 });
